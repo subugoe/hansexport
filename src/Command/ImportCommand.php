@@ -2,6 +2,8 @@
 
 namespace App\Command;
 
+use App\Entity\Hans;
+use Doctrine\ORM\EntityManagerInterface;
 use Goutte\Client;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -15,6 +17,19 @@ class ImportCommand extends Command
             ->setName('app:import');
     }
 
+    /**
+     * @var EntityManagerInterface
+     */
+    private $entityManager;
+
+    /**
+     * @required
+     */
+    public function setDoctrine(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
     public function execute(InputInterface $input, OutputInterface $output)
     {
         $client = new Client();
@@ -22,13 +37,19 @@ class ImportCommand extends Command
         $crawler = $crawler->filter('OL > LI');
 
         foreach ($crawler as $domElement) {
+            $hans = new Hans();
             $hansId = $this->getHansId($domElement->firstChild->getAttribute('href'));
-            $details = $this->getDetails($hansId);
-            $kalliope = $this->getKalliopeIds($hansId);
+
+            $hans
+                ->setHansId($hansId)
+                ->setTitle($domElement->textContent)
+                ->setContent($this->getDetails($hansId))
+                ->setKalliope($this->getKalliopeIds($hansId));
+
+            $this->entityManager->persist($hans);
+            $this->entityManager->flush();
 
             $output->writeln($domElement->textContent.' '.$hansId);
-            //       $output->writeln($details);
-            $output->writeln(implode($kalliope));
         }
     }
 
