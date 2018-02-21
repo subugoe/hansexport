@@ -13,8 +13,7 @@ class ImportCommand extends Command
 {
     protected function configure()
     {
-        $this
-            ->setName('app:import');
+        $this->setName('app:import');
     }
 
     /**
@@ -53,7 +52,7 @@ class ImportCommand extends Command
         }
     }
 
-    private function getDetails(int $hansId)
+    private function getDetails(int $hansId): string
     {
         $client = new Client();
         $crawler = $client->request('GET', sprintf('http://ssgfi.sub.uni-goettingen.de/cgi-bin/ssgfi/zamn.pl?t_show=x&reccheck=%s', $hansId));

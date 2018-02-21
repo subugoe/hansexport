@@ -18,17 +18,4 @@ class HansRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Hans::class);
     }
-
-    /*
-    public function findBySomething($value)
-    {
-        return $this->createQueryBuilder('h')
-            ->where('h.something = :value')->setParameter('value', $value)
-            ->orderBy('h.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
 }
