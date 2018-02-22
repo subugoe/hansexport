@@ -11,15 +11,35 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class ImportCommand extends Command
 {
-    protected function configure()
-    {
-        $this->setName('app:import');
-    }
+    /**
+     * @var string
+     */
+    private $listViewUrl;
+
+    /**
+     * @var string
+     */
+    private $detailViewUrl;
 
     /**
      * @var EntityManagerInterface
      */
     private $entityManager;
+
+    protected function configure()
+    {
+        $this->setName('app:import');
+    }
+
+    public function setListViewUrl(string $listViewUrl)
+    {
+        $this->listViewUrl = $listViewUrl;
+    }
+
+    public function setDetailViewUrl(string $detailViewUrl)
+    {
+        $this->detailViewUrl = $detailViewUrl;
+    }
 
     /**
      * @required
@@ -32,7 +52,7 @@ class ImportCommand extends Command
     public function execute(InputInterface $input, OutputInterface $output)
     {
         $client = new Client();
-        $crawler = $client->request('GET', 'http://ssgfi.sub.uni-goettingen.de/cgi-bin/ssgfi/anzeige1.pl/db=zamn/tag=SSW/words=Mathematik/dsp=title/nh=2');
+        $crawler = $client->request('GET', $this->listViewUrl);
         $crawler = $crawler->filter('OL > LI');
 
         foreach ($crawler as $domElement) {
@@ -55,7 +75,7 @@ class ImportCommand extends Command
     private function getDetails(int $hansId): string
     {
         $client = new Client();
-        $crawler = $client->request('GET', sprintf('http://ssgfi.sub.uni-goettingen.de/cgi-bin/ssgfi/zamn.pl?t_show=x&reccheck=%s', $hansId));
+        $crawler = $client->request('GET', sprintf('%s%s', $this->detailViewUrl, $hansId));
         $crawler = $crawler->filterXPath('//div[@class="hans_record"]');
 
         $content = '';
@@ -70,7 +90,7 @@ class ImportCommand extends Command
     private function getKalliopeIds(int $hansId): array
     {
         $client = new Client();
-        $crawler = $client->request('GET', sprintf('http://ssgfi.sub.uni-goettingen.de/cgi-bin/ssgfi/zamn.pl?t_show=x&reccheck=%s', $hansId));
+        $crawler = $client->request('GET', sprintf('%s%s', $this->detailViewUrl, $hansId));
         $crawler = $crawler->filterXPath('//div[@class="hans_kopf"]');
 
         $content = [];
