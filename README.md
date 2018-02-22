@@ -6,3 +6,5 @@ A small article can be found on [lab.sub](https://subugoe.pages.gwdg.de/lab.sub/
 
 Install the dependencies with `composer install`, add the `LIST_VIEW_URL` and `DETAIL_VIEW_URL` environment variables and start 
 the export with `./bin/console app:import `.
+
+Another method is to build it with docker `docker build -t hansexport .` and start it with `docker run -it --rm hansexport`.
