@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Command;
 
 use App\Entity\Hans;
@@ -11,20 +13,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class ImportCommand extends Command
 {
-    /**
-     * @var string
-     */
-    private $listViewUrl;
+    private string $listViewUrl;
 
-    /**
-     * @var string
-     */
-    private $detailViewUrl;
+    private string $detailViewUrl;
 
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     protected function configure()
     {
@@ -49,7 +42,7 @@ class ImportCommand extends Command
         $this->entityManager = $entityManager;
     }
 
-    public function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $client = new Client();
         $crawler = $client->request('GET', $this->listViewUrl);
@@ -70,6 +63,8 @@ class ImportCommand extends Command
 
             $output->writeln($domElement->textContent.' '.$hansId);
         }
+
+        return 0;
     }
 
     private function getDetails(int $hansId): string

@@ -11,46 +11,46 @@ class Hans
 {
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue
+     * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id = 0;
 
     /**
-     * @var int
      * @ORM\Column(type="integer")
      */
-    private $hansId;
+    private int $hansId = 0;
 
     /**
-     * @var string
      * @ORM\Column(type="string")
      */
-    private $title;
+    private string $title = '';
 
     /**
-     * @var string
      * @ORM\Column(type="text")
      */
-    private $content;
+    private string $content = '';
 
     /**
-     * @var array
+     * @ORM\ManyToOne(targetEntity="App\Entity\Author", inversedBy="authors")
+     * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
+     */
+    private ?Author $author = null;
+
+    /**
      * @ORM\Column(type="array")
      */
-    private $kalliope;
+    private array $kalliope = [];
 
     /**
      * @return int
      */
-    public function getHansId(): int
+    public function getHansId(): ?int
     {
         return $this->hansId;
     }
 
     /**
-     * @param int $hansId
-     *
      * @return Hans
      */
     public function setHansId(int $hansId): self
@@ -63,14 +63,12 @@ class Hans
     /**
      * @return string
      */
-    public function getContent(): string
+    public function getContent(): ?string
     {
         return $this->content;
     }
 
     /**
-     * @param string $content
-     *
      * @return Hans
      */
     public function setContent(string $content): self
@@ -83,14 +81,12 @@ class Hans
     /**
      * @return array
      */
-    public function getKalliope(): array
+    public function getKalliope(): ?array
     {
         return $this->kalliope;
     }
 
     /**
-     * @param array $kalliope
-     *
      * @return Hans
      */
     public function setKalliope(array $kalliope): self
@@ -103,14 +99,12 @@ class Hans
     /**
      * @return string
      */
-    public function getTitle(): string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
 
     /**
-     * @param string $title
-     *
      * @return Hans
      */
     public function setTitle(string $title): self
@@ -118,5 +112,50 @@ class Hans
         $this->title = $title;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId(): ?string
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     *
+     * @return Hans
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * @return Author
+     */
+    public function getAuthor(): ?Author
+    {
+        return $this->author;
+    }
+
+    /**
+     * @param Author $author
+     *
+     * @return Hans
+     */
+    public function setAuthor($author)
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->hansId.' '.$this->getTitle();
     }
 }
