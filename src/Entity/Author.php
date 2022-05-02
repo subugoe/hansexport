@@ -8,12 +8,11 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AuthorRepository")
  */
-class Author
+class Author implements \Stringable
 {
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue
-    (strategy="AUTO")
+     * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
      */
     private int $id = 0;
@@ -29,10 +28,7 @@ class Author
      */
     private $hans;
 
-    /**
-     * @return mixed
-     */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
@@ -44,9 +40,6 @@ class Author
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getAuthor(): ?string
     {
         return $this->author;
@@ -64,25 +57,19 @@ class Author
      */
     private ?\DateTimeInterface $born = null;
 
-    /**
-     * @return \DateTimeInterface
-     */
     public function getBorn(): ?\DateTimeInterface
     {
         return $this->born;
     }
 
-    public function setBorn(\DateTime $born): Author
+    public function setBorn(\DateTime|\DateTimeImmutable $born): Author
     {
         $this->born = $born;
 
         return $this;
     }
 
-    /**
-     * @return Hans
-     */
-    public function getHans()
+    public function getHans(): Hans
     {
         return $this->hans;
     }
@@ -94,7 +81,7 @@ class Author
         return $this;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->author;
     }

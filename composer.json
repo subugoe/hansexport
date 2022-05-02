@@ -2,29 +2,37 @@
     "type": "project",
     "license": "proprietary",
     "require": {
-        "php": "^7.4.3",
+        "php": "^8.0",
         "ext-iconv": "*",
-        "easycorp/easyadmin-bundle": "^2.3",
+        "composer/package-versions-deprecated": "1.11.99.5",
+        "doctrine/common": "^3.3",
+        "doctrine/doctrine-bundle": "^2",
+        "doctrine/doctrine-migrations-bundle": "^3.2",
+        "doctrine/orm": "^2.12",
+        "easycorp/easyadmin-bundle": "^4.0",
         "fabpot/goutte": "^4.0",
-        "symfony/console": "^5.0",
-        "symfony/dom-crawler": "^5.0",
-        "symfony/flex": "^1.0",
-        "symfony/framework-bundle": "^5.0",
-        "symfony/orm-pack": "^1.0",
-        "symfony/yaml": "^5.0"
+        "symfony/console": "^6.0",
+        "symfony/dom-crawler": "^6.0",
+        "symfony/flex": "^2.1",
+        "symfony/framework-bundle": "^6.0",
+        "symfony/yaml": "^6.0"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^2.16",
-        "rector/rector": "^0.7.3",
-        "roave/security-advisories": "dev-master",
-        "symfony/dotenv": "^5.0",
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "rector/rector": "^0.12",
+        "roave/security-advisories": "dev-latest",
+        "symfony/dotenv": "^6.0",
         "symfony/maker-bundle": "^1.1"
     },
     "config": {
         "preferred-install": {
             "*": "dist"
         },
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "ocramius/package-versions": true,
+            "symfony/flex": true
+        }
     },
     "autoload": {
         "psr-4": {
@@ -39,6 +47,7 @@
     "replace": {
         "php-cs-fixer/diff": "*",
         "symfony/polyfill-iconv": "*",
+        "symfony/polyfill-php74": "*",
         "symfony/polyfill-php73": "*",
         "symfony/polyfill-php72": "*",
         "symfony/polyfill-php71": "*",

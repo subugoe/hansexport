@@ -10,6 +10,7 @@ use Goutte\Client;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Contracts\Service\Attribute\Required;
 
 class ImportCommand extends Command
 {
@@ -24,20 +25,18 @@ class ImportCommand extends Command
         $this->setName('app:import');
     }
 
-    public function setListViewUrl(string $listViewUrl)
+    public function setListViewUrl(string $listViewUrl): void
     {
         $this->listViewUrl = $listViewUrl;
     }
 
-    public function setDetailViewUrl(string $detailViewUrl)
+    public function setDetailViewUrl(string $detailViewUrl): void
     {
         $this->detailViewUrl = $detailViewUrl;
     }
 
-    /**
-     * @required
-     */
-    public function setDoctrine(EntityManagerInterface $entityManager)
+    #[Required]
+    public function setDoctrine(EntityManagerInterface $entityManager): void
     {
         $this->entityManager = $entityManager;
     }

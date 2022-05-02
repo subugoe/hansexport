@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\HansRepository")
  */
-class Hans
+class Hans implements \Stringable
 {
     /**
      * @ORM\Id
@@ -50,9 +50,6 @@ class Hans
         return $this->hansId;
     }
 
-    /**
-     * @return Hans
-     */
     public function setHansId(int $hansId): self
     {
         $this->hansId = $hansId;
@@ -68,9 +65,6 @@ class Hans
         return $this->content;
     }
 
-    /**
-     * @return Hans
-     */
     public function setContent(string $content): self
     {
         $this->content = $content;
@@ -78,17 +72,11 @@ class Hans
         return $this;
     }
 
-    /**
-     * @return array
-     */
     public function getKalliope(): ?array
     {
         return $this->kalliope;
     }
 
-    /**
-     * @return Hans
-     */
     public function setKalliope(array $kalliope): self
     {
         $this->kalliope = $kalliope;
@@ -96,17 +84,11 @@ class Hans
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getTitle(): ?string
     {
         return $this->title;
     }
 
-    /**
-     * @return Hans
-     */
     public function setTitle(string $title): self
     {
         $this->title = $title;
@@ -114,47 +96,31 @@ class Hans
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
     public function getId(): ?string
     {
         return $this->id;
     }
 
-    /**
-     * @param mixed $id
-     *
-     * @return Hans
-     */
-    public function setId($id)
+    public function setId($id): static
     {
         $this->id = $id;
 
         return $this;
     }
 
-    /**
-     * @return Author
-     */
     public function getAuthor(): ?Author
     {
         return $this->author;
     }
 
-    /**
-     * @param Author $author
-     *
-     * @return Hans
-     */
-    public function setAuthor($author)
+    public function setAuthor(Author $author): static
     {
         $this->author = $author;
 
         return $this;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->hansId.' '.$this->getTitle();
     }
