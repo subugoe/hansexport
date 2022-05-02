@@ -15,7 +15,7 @@ return static function (Rector\Config\RectorConfig $rectorConfig): void {
 
     $rectorConfig->sets([
         SetList::CODE_QUALITY,
-        SetList::PHP_80,
+        SetList::PHP_81,
         SymfonySetList::SYMFONY_60,
     ]);
 };

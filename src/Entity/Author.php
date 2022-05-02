@@ -69,7 +69,7 @@ class Author implements \Stringable
         return $this;
     }
 
-    public function getHans(): Hans
+    public function getHans(): ?Hans
     {
         return $this->hans;
     }
